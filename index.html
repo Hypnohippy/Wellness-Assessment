@@ -1165,11 +1165,11 @@ while True:
     </script>
 <script>
 
+<script>
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
 
-
 function submitToGoogleSheets(name, email, phone) {
-    alert('Trying to send: ' + name + ' - ' + email); // Test alert
+    alert('Sending to Google Sheets: ' + name + ' - ' + email);
     
     let totalScore = 0;
     if (typeof answers !== 'undefined') {
@@ -1201,19 +1201,120 @@ function submitToGoogleSheets(name, email, phone) {
         alert('ERROR: ' + error);
     });
 }
-        alert('Assessment completed! You will receive your results via email.');
+
+function submitAssessment() {
+    // Get form data
+    const fullName = document.getElementById('fullName').value.trim();
+    const emailAddress = document.getElementById('emailAddress').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const emailConsent = document.getElementById('emailConsent').checked;
+    
+    if (!fullName || !emailAddress || !emailConsent) {
+        alert('Please fill in all required fields and agree to receive your wellness plan.');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailAddress)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+    
+    // Send to Google Sheets FIRST
+    submitToGoogleSheets(fullName, emailAddress, phoneNumber);
+    
+    // Then continue with your existing functionality
+    calculateAndShowResults({
+        fullName: fullName,
+        emailAddress: emailAddress,
+        phoneNumber: phoneNumber,
+        answers: answers
     });
 }
-</script>
-</body>
-</body>
-</html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDq7aOBeappWMcm%2F3u2SwqenQbakf9NUUGuA2tAo6YzPTwwqOuh6RLd%2FVURzgiHvMaMntPUVx7eUdBqJ8dLfCDNdHsB7jeP0LZiGGOv%2FqB1SMje8JYepPeMcK9wp4XuCxZGSi2oh8LpQhsguSYYHEaeJXy21iBdEROOcHP%2Fz98qN8RDoTuyA8aBZE1m2NrhjE5yXPWeCFp%2BttuFnRzCMMfhzCA5dQxO9x37Ydp5CrA597zgaon7Yv3wqZ%2F6Et2vkzoeNNymxRVUixEwcXHrFbD0u6Nsv9CvxUeJXBUzoTQsDPZb7JVPQCjAmIFsvoy6%2BoGvjOFe%2B7D%2BNdGwBJZNr0rjVV8RAeVLrUBzXLIus3tuU0GRBcdOcxeorwYriZM9IztWaY6a%2FRBG4NSp2xWQgIp7n7%2BDOqts%2FcoVwbnhsPJlr2N6QPC%2B3ZsVPwPte6CfW9O5u54B7XMjdPpCBb2N5pokLMnh5afe4JoMgUIaVJlkgpTJVGfIaVK0j%2BCtdD7sWO55gTYbTGvXy9UnfCwTWoqqA%3D";
-        window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDq7aOBeappWMcm/3u2SwqenQbakf9NUUGuA2tAo6YzPTwwqOuh6RLd/VURzgiHvMaMntPUVx7eUdBqJ8dLfCDNdHsB7jeP0LZiGGOv/qB1SMje8JYepPeMcK9wp4XuCxZGSi2oh8LpQhsguSYYHEaeJXy21iBdEROOcHP/z98qN8RDoTuyA8aBZE1m2NrhjE5yXPWeCFp+ttuFnRzCMMfhzCA5dQxO9x37Ydp5CrA597zgaon7Yv3wqZ/6Et2vkzoeNNymxRVUixEwcXHrFbD0u6Nsv9CvxUeJXBUzoTQsDPZb7JVPQCjAmIFsvoy6+oGvjOFe+7D+NdGwBJZNr0rjVV8RAeVLrUBzXLIus3tuU0GRBcdOcxeorwYriZM9IztWaY6a/RBG4NSp2xWQgIp7n7+DOqts/coVwbnhsPJlr2N6QPC+3ZsVPwPte6CfW9O5u54B7XMjdPpCBb2N5pokLMnh5afe4JoMgUIaVJlkgpTJVGfIaVK0j+CtdD7sWO55gTYbTGvXy9UnfCwTWoqqA=";
-    </script>
+
+// Make sure this runs when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Connect the submit button
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', submitAssessment);
+    }
+});
+
+// Add all your other existing functions here (generateCategoryBreakdown, etc.)
+function generateCategoryBreakdown() {
+    const categories = [
+        { name: 'Energy Levels', value: answers.energy || 0, icon: 'fas fa-bolt', max: 5 },
+        { name: 'Sleep Quality', value: answers.sleep || 0, icon: 'fas fa-bed', max: 5 },
+        { name: 'Stress Management', value: answers.stress || 0, icon: 'fas fa-brain', max: 5 },
+        { name: 'Physical Health', value: answers.physical || 0, icon: 'fas fa-heartbeat', max: 5 },
+        { name: 'Mental Wellbeing', value: answers.mood || 0, icon: 'fas fa-smile', max: 5 },
+        { name: 'Weight Satisfaction', value: answers.weight || 0, icon: 'fas fa-weight', max: 5 },
+        { name: 'Exercise Frequency', value: answers.exercise || 0, icon: 'fas fa-running', max: 5 },
+        { name: 'Overall Health', value: answers.overall || 0, icon: 'fas fa-heart', max: 5 }
+    ];
     
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    const breakdown = document.getElementById('categoryBreakdown');
+    breakdown.innerHTML = '';
+    
+    categories.forEach(category => {
+        const percentage = (category.value / category.max) * 100;
+        let colorClass = percentage >= 80 ? 'text-green-600' : percentage >= 60 ? 'text-blue-600' : percentage >= 40 ? 'text-yellow-600' : 'text-red-600';
+        
+        breakdown.innerHTML += `
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="${category.icon} ${colorClass} mr-2"></i>
+                    <span class="text-sm">${category.name}</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                        <div class="h-2 rounded-full ${colorClass.replace('text-', 'bg-')}" style="width: ${percentage}%"></div>
+                    </div>
+                    <span class="text-sm font-semibold">${category.value}/${category.max}</span>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function generateOpportunities() {
+    // Your existing generateOpportunities code
+    const categories = [
+        { name: 'Energy Levels', value: answers.energy || 0, tip: 'Optimize your morning routine and nutrient timing' },
+        { name: 'Sleep Quality', value: answers.sleep || 0, tip: 'Develop a consistent sleep hygiene protocol' },
+        { name: 'Stress Management', value: answers.stress || 0, tip: 'Learn evidence-based stress reduction techniques' },
+        { name: 'Physical Health', value: answers.physical || 0, tip: 'Address underlying inflammation and nutrient deficiencies' },
+        { name: 'Mental Wellbeing', value: answers.mood || 0, tip: 'Implement daily mindfulness and emotional regulation practices' },
+        { name: 'Weight Management', value: answers.weight || 0, tip: 'Create a sustainable, personalized nutrition plan' },
+        { name: 'Exercise Habits', value: answers.exercise || 0, tip: 'Design an enjoyable, progressive fitness routine' },
+        { name: 'Overall Vitality', value: answers.overall || 0, tip: 'Integrate all health pillars for maximum synergy' }
+    ];
+    
+    categories.sort((a, b) => a.value - b.value);
+    
+    const opportunities = document.getElementById('opportunities');
+    opportunities.innerHTML = '';
+    
+    categories.slice(0, 4).forEach((category, index) => {
+        opportunities.innerHTML += `
+            <div class="flex items-start">
+                <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1">
+                    ${index + 1}
+                </div>
+                <div>
+                    <div class="font-semibold text-gray-800">${category.name}</div>
+                    <div class="text-sm text-gray-600">${category.tip}</div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function bookConsultation() {
+    alert('Redirecting to booking calendar...');
+}
+</script>
+
     
