@@ -3,553 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellness Discovery Assessment - Unlock Your Health Potential</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Free Wellness Assessment - Discover Your Health Score</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        .question-card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 15px;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
-        }
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        .radio-option {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-radius: 12px;
-            border: 2px solid #e5e7eb;
-        }
-        .radio-option:hover {
-            border-color: #667eea;
-            background-color: #f8faff;
-        }
-        .radio-option.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .progress-bar {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 8px;
-            border-radius: 4px;
-            transition: width 0.3s ease;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
         }
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
-        .email-template {
-            background: #f8faff;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 14px;
+        .radio-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .radio-option:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .radio-option input[type="radio"]:checked + .radio-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
         .score-circle {
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
             color: white;
-            position: relative;
-            margin: 0 auto;
+            font-size: 2rem;
+            font-weight: bold;
         }
-        .score-excellent { background: linear-gradient(135deg, #10b981, #059669); }
-        .score-good { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .score-fair { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .score-poor { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .hidden { display: none; }
     </style>
 </head>
-<body>
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="glass-card p-8">
-                <h1 class="text-4xl font-bold text-gray-800 mb-4">
-                    <i class="fas fa-heartbeat text-purple-600 mr-3"></i>
-                    Wellness Discovery Assessment
-                </h1>
-                <p class="text-xl text-gray-600 mb-6">Unlock Your Health Potential in 60 Seconds</p>
-                <div class="bg-gradient-to-r from-purple-100 to-blue-100 p-6 rounded-lg">
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Discover your transformation potential score and receive a personalized wellness plan 
-                        tailored specifically to your needs. This assessment has helped over 1,000 people 
-                        identify their path to optimal health.
-                    </p>
-                </div>
-            </div>
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-heartbeat text-red-500 mr-3"></i>
+                Wellness Assessment
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Discover your personal wellness score and get customized recommendations for optimal health and vitality.
+            </p>
         </div>
 
         <!-- Assessment Form -->
-        <div id="assessmentForm" class="glass-card p-8">
+        <div id="assessmentForm" class="glass-card p-8 mb-8">
             <!-- Progress Bar -->
             <div class="mb-8">
-                <div class="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>Progress</span>
-                    <span id="progressText">Question 1 of 8</span>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-700">Progress</span>
+                    <span id="progressText" class="text-sm font-medium text-gray-700">Question 1 of 8</span>
                 </div>
-                <div class="bg-gray-200 rounded-full h-2">
-                    <div id="progressBar" class="progress-bar w-1/8"></div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div id="progressBar" class="h-3 rounded-full btn-primary" style="width: 12.5%"></div>
                 </div>
             </div>
 
-            <!-- Question 1 -->
-            <div class="question-slide" data-question="1">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+            <!-- Questions -->
+            <div id="questionsContainer">
+                <!-- Question 1: Energy -->
+                <div class="question-slide" data-question="1">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
                         <i class="fas fa-bolt text-yellow-500 mr-3"></i>
                         How would you rate your energy levels throughout the day?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="energy">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(1, 1)">
                             <input type="radio" name="energy" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-battery-empty text-red-500 mr-3"></i>
-                                <span>Constantly exhausted, even after rest (1-2/10)</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Very Low Energy</div>
+                                <div class="text-sm text-gray-600">Constantly tired, need multiple naps</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="energy">
-                            <input type="radio" name="energy" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-battery-quarter text-orange-500 mr-3"></i>
-                                <span>Low energy, need caffeine to function (3-4/10)</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="energy">
+                        <div class="radio-option" onclick="selectAnswer(1, 3)">
                             <input type="radio" name="energy" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-battery-half text-yellow-500 mr-3"></i>
-                                <span>Moderate energy, afternoon crashes (5-6/10)</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Low Energy</div>
+                                <div class="text-sm text-gray-600">Often feel sluggish, afternoon crashes</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="energy">
-                            <input type="radio" name="energy" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-battery-three-quarters text-blue-500 mr-3"></i>
-                                <span>Good energy most days (7-8/10)</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="energy">
+                        <div class="radio-option" onclick="selectAnswer(1, 5)">
                             <input type="radio" name="energy" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-battery-full text-green-500 mr-3"></i>
-                                <span>Excellent, sustained energy all day (9-10/10)</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Moderate Energy</div>
+                                <div class="text-sm text-gray-600">Decent energy most of the time</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(1, 8)">
+                            <input type="radio" name="energy" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">High Energy</div>
+                                <div class="text-sm text-gray-600">Feel energetic and vibrant most days</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 2 -->
-            <div class="question-slide hidden" data-question="2">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-bed text-indigo-500 mr-3"></i>
-                        How would you describe your sleep quality?
+                <!-- Question 2: Sleep -->
+                <div class="question-slide hidden" data-question="2">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-bed text-blue-500 mr-3"></i>
+                        How is your sleep quality?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="sleep">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(2, 1)">
                             <input type="radio" name="sleep" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-moon text-red-500 mr-3"></i>
-                                <span>Rarely feel rested, wake up multiple times</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Very Poor Sleep</div>
+                                <div class="text-sm text-gray-600">Frequent insomnia, wake up tired</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="sleep">
-                            <input type="radio" name="sleep" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-cloud-moon text-orange-500 mr-3"></i>
-                                <span>Poor sleep, wake up tired most mornings</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="sleep">
+                        <div class="radio-option" onclick="selectAnswer(2, 3)">
                             <input type="radio" name="sleep" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-star-half-alt text-yellow-500 mr-3"></i>
-                                <span>Decent sleep, but not consistently refreshing</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Poor Sleep</div>
+                                <div class="text-sm text-gray-600">Trouble falling asleep or staying asleep</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="sleep">
-                            <input type="radio" name="sleep" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-blue-500 mr-3"></i>
-                                <span>Good sleep most nights, wake up refreshed</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="sleep">
+                        <div class="radio-option" onclick="selectAnswer(2, 5)">
                             <input type="radio" name="sleep" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-sun text-green-500 mr-3"></i>
-                                <span>Excellent sleep, wake up energized daily</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Fair Sleep</div>
+                                <div class="text-sm text-gray-600">Sleep okay most nights</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(2, 8)">
+                            <input type="radio" name="sleep" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Excellent Sleep</div>
+                                <div class="text-sm text-gray-600">Fall asleep easily, wake up refreshed</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 3 -->
-            <div class="question-slide hidden" data-question="3">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-brain text-pink-500 mr-3"></i>
-                        How do you handle daily stress and pressure?
+                <!-- Question 3: Stress -->
+                <div class="question-slide hidden" data-question="3">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-brain text-purple-500 mr-3"></i>
+                        How well do you manage stress?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="stress">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(3, 1)">
                             <input type="radio" name="stress" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
-                                <span>Constantly overwhelmed, stress affects everything</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Overwhelmed</div>
+                                <div class="text-sm text-gray-600">Constantly stressed and anxious</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="stress">
-                            <input type="radio" name="stress" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-frown text-orange-500 mr-3"></i>
-                                <span>High stress levels, difficult to manage</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="stress">
+                        <div class="radio-option" onclick="selectAnswer(3, 3)">
                             <input type="radio" name="stress" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-meh text-yellow-500 mr-3"></i>
-                                <span>Moderate stress, manageable but draining</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">High Stress</div>
+                                <div class="text-sm text-gray-600">Often feel stressed and worried</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="stress">
-                            <input type="radio" name="stress" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-smile text-blue-500 mr-3"></i>
-                                <span>Handle stress well most of the time</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="stress">
+                        <div class="radio-option" onclick="selectAnswer(3, 5)">
                             <input type="radio" name="stress" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-grin text-green-500 mr-3"></i>
-                                <span>Excellent stress management, feel calm and centered</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Moderate Stress</div>
+                                <div class="text-sm text-gray-600">Some stress but manageable</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(3, 8)">
+                            <input type="radio" name="stress" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Well Managed</div>
+                                <div class="text-sm text-gray-600">Feel calm and in control most of the time</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 4 -->
-            <div class="question-slide hidden" data-question="4">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+                <!-- Question 4: Physical Health -->
+                <div class="question-slide hidden" data-question="4">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
                         <i class="fas fa-heartbeat text-red-500 mr-3"></i>
-                        Do you experience any physical discomfort or symptoms?
+                        How is your physical health?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="physical">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(4, 1)">
                             <input type="radio" name="physical" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-                                <span>Multiple symptoms daily (headaches, pain, digestive issues)</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Poor Health</div>
+                                <div class="text-sm text-gray-600">Multiple health issues, frequent illness</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="physical">
-                            <input type="radio" name="physical" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-band-aid text-orange-500 mr-3"></i>
-                                <span>Regular discomfort, some chronic symptoms</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="physical">
+                        <div class="radio-option" onclick="selectAnswer(4, 3)">
                             <input type="radio" name="physical" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-thermometer-half text-yellow-500 mr-3"></i>
-                                <span>Occasional symptoms, manageable discomfort</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Below Average</div>
+                                <div class="text-sm text-gray-600">Some ongoing health concerns</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="physical">
-                            <input type="radio" name="physical" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-check-circle text-blue-500 mr-3"></i>
-                                <span>Minor issues, generally feel good physically</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="physical">
+                        <div class="radio-option" onclick="selectAnswer(4, 5)">
                             <input type="radio" name="physical" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-heart text-green-500 mr-3"></i>
-                                <span>No significant symptoms, excellent physical health</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Average Health</div>
+                                <div class="text-sm text-gray-600">Generally healthy with minor issues</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(4, 8)">
+                            <input type="radio" name="physical" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Excellent Health</div>
+                                <div class="text-sm text-gray-600">Feel strong, healthy, and vibrant</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 5 -->
-            <div class="question-slide hidden" data-question="5">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-smile text-yellow-500 mr-3"></i>
-                        How would you describe your overall mood and mental well-being?
+                <!-- Question 5: Mood -->
+                <div class="question-slide hidden" data-question="5">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-smile text-green-500 mr-3"></i>
+                        How is your mental and emotional wellbeing?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="mood">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(5, 1)">
                             <input type="radio" name="mood" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-sad-cry text-red-500 mr-3"></i>
-                                <span>Frequently anxious, low mood, feel overwhelmed</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Struggling</div>
+                                <div class="text-sm text-gray-600">Often sad, anxious, or depressed</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="mood">
-                            <input type="radio" name="mood" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-frown text-orange-500 mr-3"></i>
-                                <span>Often stressed, mood swings, irritable</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="mood">
+                        <div class="radio-option" onclick="selectAnswer(5, 3)">
                             <input type="radio" name="mood" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-meh text-yellow-500 mr-3"></i>
-                                <span>Neutral mood, some ups and downs</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Below Average</div>
+                                <div class="text-sm text-gray-600">Mood swings, some emotional difficulties</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="mood">
-                            <input type="radio" name="mood" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-smile text-blue-500 mr-3"></i>
-                                <span>Generally positive, good emotional balance</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="mood">
+                        <div class="radio-option" onclick="selectAnswer(5, 5)">
                             <input type="radio" name="mood" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-laugh text-green-500 mr-3"></i>
-                                <span>Excellent mental health, positive and resilient</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Good</div>
+                                <div class="text-sm text-gray-600">Generally positive and stable</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(5, 8)">
+                            <input type="radio" name="mood" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Excellent</div>
+                                <div class="text-sm text-gray-600">Feel happy, balanced, and emotionally strong</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 6 -->
-            <div class="question-slide hidden" data-question="6">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-weight text-purple-500 mr-3"></i>
-                        How satisfied are you with your current weight and body composition?
+                <!-- Question 6: Weight -->
+                <div class="question-slide hidden" data-question="6">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-weight text-orange-500 mr-3"></i>
+                        How satisfied are you with your weight and body composition?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="weight">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(6, 1)">
                             <input type="radio" name="weight" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-chart-line text-red-500 mr-3"></i>
-                                <span>Very dissatisfied, struggling with weight issues</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Very Dissatisfied</div>
+                                <div class="text-sm text-gray-600">Significant weight or body image concerns</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="weight">
-                            <input type="radio" name="weight" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-minus-circle text-orange-500 mr-3"></i>
-                                <span>Unhappy with current weight, need to lose/gain</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="weight">
+                        <div class="radio-option" onclick="selectAnswer(6, 3)">
                             <input type="radio" name="weight" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-balance-scale text-yellow-500 mr-3"></i>
-                                <span>Somewhat satisfied, could use some improvement</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Somewhat Dissatisfied</div>
+                                <div class="text-sm text-gray-600">Would like to lose or gain weight</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="weight">
-                            <input type="radio" name="weight" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-thumbs-up text-blue-500 mr-3"></i>
-                                <span>Mostly satisfied, minor adjustments needed</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="weight">
+                        <div class="radio-option" onclick="selectAnswer(6, 5)">
                             <input type="radio" name="weight" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-green-500 mr-3"></i>
-                                <span>Very satisfied with my weight and fitness level</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Neutral</div>
+                                <div class="text-sm text-gray-600">Weight is okay, some minor concerns</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(6, 8)">
+                            <input type="radio" name="weight" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Very Satisfied</div>
+                                <div class="text-sm text-gray-600">Happy with body weight and composition</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 7 -->
-            <div class="question-slide hidden" data-question="7">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-running text-blue-500 mr-3"></i>
-                        How often do you engage in physical exercise or movement?
+                <!-- Question 7: Exercise -->
+                <div class="question-slide hidden" data-question="7">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-running text-indigo-500 mr-3"></i>
+                        How often do you exercise or engage in physical activity?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="exercise">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(7, 1)">
                             <input type="radio" name="exercise" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-couch text-red-500 mr-3"></i>
-                                <span>Rarely or never exercise, very sedentary</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Rarely/Never</div>
+                                <div class="text-sm text-gray-600">Sedentary lifestyle, no regular exercise</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="exercise">
-                            <input type="radio" name="exercise" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-walking text-orange-500 mr-3"></i>
-                                <span>Minimal activity, less than 1-2 times per week</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="exercise">
+                        <div class="radio-option" onclick="selectAnswer(7, 3)">
                             <input type="radio" name="exercise" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-bicycle text-yellow-500 mr-3"></i>
-                                <span>Moderate activity, 2-3 times per week</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Occasionally</div>
+                                <div class="text-sm text-gray-600">Exercise 1-2 times per week</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="exercise">
-                            <input type="radio" name="exercise" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-dumbbell text-blue-500 mr-3"></i>
-                                <span>Regular exercise, 4-5 times per week</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="exercise">
+                        <div class="radio-option" onclick="selectAnswer(7, 5)">
                             <input type="radio" name="exercise" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-trophy text-green-500 mr-3"></i>
-                                <span>Very active, daily movement and structured exercise</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Regularly</div>
+                                <div class="text-sm text-gray-600">Exercise 3-4 times per week</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(7, 8)">
+                            <input type="radio" name="exercise" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Very Active</div>
+                                <div class="text-sm text-gray-600">Exercise 5+ times per week, very active lifestyle</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Question 8 -->
-            <div class="question-slide hidden" data-question="8">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-heart text-red-400 mr-3"></i>
-                        Overall, how satisfied are you with your current health and vitality?
+                <!-- Question 8: Overall Health -->
+                <div class="question-slide hidden" data-question="8">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-heart text-pink-500 mr-3"></i>
+                        Overall, how would you rate your health and vitality?
                     </h3>
-                    <div class="space-y-3">
-                        <div class="radio-option p-4" data-value="1" data-question="overall">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="radio-option" onclick="selectAnswer(8, 1)">
                             <input type="radio" name="overall" value="1" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-times-circle text-red-500 mr-3"></i>
-                                <span>Very dissatisfied, feel much older than my age</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Poor</div>
+                                <div class="text-sm text-gray-600">Feel unwell most of the time</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="2" data-question="overall">
-                            <input type="radio" name="overall" value="2" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-minus text-orange-500 mr-3"></i>
-                                <span>Unhappy with health, know I could feel much better</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="3" data-question="overall">
+                        <div class="radio-option" onclick="selectAnswer(8, 3)">
                             <input type="radio" name="overall" value="3" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-equals text-yellow-500 mr-3"></i>
-                                <span>Average health, room for significant improvement</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Below Average</div>
+                                <div class="text-sm text-gray-600">Health could be much better</div>
                             </div>
                         </div>
-                        <div class="radio-option p-4" data-value="4" data-question="overall">
-                            <input type="radio" name="overall" value="4" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-plus text-blue-500 mr-3"></i>
-                                <span>Good health, feel younger than my age</span>
-                            </div>
-                        </div>
-                        <div class="radio-option p-4" data-value="5" data-question="overall">
+                        <div class="radio-option" onclick="selectAnswer(8, 5)">
                             <input type="radio" name="overall" value="5" class="hidden">
-                            <div class="flex items-center">
-                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                <span>Excellent health and vitality, full of energy</span>
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Good</div>
+                                <div class="text-sm text-gray-600">Generally healthy and well</div>
+                            </div>
+                        </div>
+                        <div class="radio-option" onclick="selectAnswer(8, 8)">
+                            <input type="radio" name="overall" value="8" class="hidden">
+                            <div class="radio-content p-4 border-2 border-gray-200 rounded-lg">
+                                <div class="font-semibold">Excellent</div>
+                                <div class="text-sm text-gray-600">Feel amazing, full of life and vitality</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Email Capture Form -->
-            <div id="emailCapture" class="question-slide hidden">
-                <div class="question-card p-6 mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">
-                        <i class="fas fa-envelope text-purple-500 mr-3"></i>
+                <!-- Email Form -->
+                <div id="emailForm" class="question-slide hidden" data-question="9">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">
+                        <i class="fas fa-envelope text-blue-500 mr-3"></i>
                         Get Your Personalized Wellness Plan
                     </h3>
-                    <p class="text-gray-600 mb-6">Enter your details below to receive your detailed wellness score and personalized transformation plan via email.</p>
-                    
-                    <div class="space-y-4">
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                        <p class="text-blue-800">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Enter your details to receive your personalized wellness recommendations and transformation roadmap.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                            <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Your full name" required>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                            <input type="email" id="emailAddress" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com" required>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number (Optional)</label>
-                            <input type="tel" id="phoneNumber" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="+1 (555) 123-4567">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">What's your biggest health concern right now?</label>
-                            <textarea id="healthConcern" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent h-24" placeholder="Low energy, stress, weight, sleep issues, etc."></textarea>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <input type="checkbox" id="emailConsent" class="mt-1 mr-3" required>
-                            <label for="emailConsent" class="text-sm text-gray-600">
-                                I agree to receive my personalized wellness plan and helpful health tips via email. You can unsubscribe at any time.
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Full Name *
                             </label>
+                            <input type="text" id="fullName" required
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                         </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Email Address *
+                            </label>
+                            <input type="email" id="emailAddress" required
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Phone Number (Optional)
+                            </label>
+                            <input type="tel" id="phoneNumber"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Primary Health Concern (Optional)
+                            </label>
+                            <input type="text" id="healthConcern"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="emailConsent" required
+                                class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                            <span class="ml-2 text-sm text-gray-600">
+                                I agree to receive my personalized wellness plan and occasional health tips via email. *
+                            </span>
+                        </label>
                     </div>
                 </div>
             </div>
 
             <!-- Navigation Buttons -->
             <div class="flex justify-between items-center mt-8">
-                <button id="prevBtn" class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors duration-300 hidden">
-                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                <button id="prevBtn" class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg font-semibold hidden" onclick="prevQuestion()">
+                    <i class="fas fa-chevron-left mr-2"></i>Previous
                 </button>
-                <button id="nextBtn" class="px-8 py-3 btn-primary text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed ml-auto">
-                    Next <i class="fas fa-arrow-right ml-2"></i>
+                <button id="nextBtn" class="px-6 py-3 btn-primary text-white rounded-lg font-semibold" onclick="nextQuestion()">
+                    Next<i class="fas fa-chevron-right ml-2"></i>
                 </button>
-<button id="submitBtn" class="px-8 py-3 btn-primary text-white rounded-lg font-semibold hidden" onclick="submitAssessment()">
-    <i class="fas fa-paper-plane mr-2"></i>Get My Wellness Plan
-</button>            </div>
+                <button id="submitBtn" class="px-8 py-3 btn-primary text-white rounded-lg font-semibold hidden" onclick="submitAssessment()">
+                    <i class="fas fa-paper-plane mr-2"></i>Get My Wellness Plan
+                </button>
+            </div>
         </div>
 
         <!-- Results Section -->
@@ -563,7 +458,7 @@
                 <!-- Score Display -->
                 <div class="mb-8">
                     <div id="scoreCircle" class="score-circle mx-auto mb-4">
-                        <span id="totalScore">0</span><span class="text-2xl">/100</span>
+                        <span id="totalScore">0</span><span class="text-2xl">/64</span>
                     </div>
                     <h3 id="scoreLevel" class="text-2xl font-semibold mb-2">Your Wellness Level</h3>
                     <p id="scoreDescription" class="text-lg text-gray-600"></p>
@@ -581,479 +476,226 @@
                     </div>
                 </div>
 
-                <!-- Strong Call to Action -->
-                <div class="bg-gradient-to-r from-purple-100 to-blue-100 p-8 rounded-lg border-2 border-purple-300">
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">
-                        🌟 EXCITING NEWS: Your Transformation Potential is INCREDIBLE!
-                    </h3>
-                    <div id="transformationMessage" class="text-lg text-gray-700 mb-6 leading-relaxed"></div>
-                    
-                    <div class="bg-white p-6 rounded-lg mb-6 border-2 border-yellow-400">
-                        <h4 class="text-2xl font-bold text-gray-800 mb-3">
-                            🎯 LIMITED OPPORTUNITY: Complimentary Discovery Session
-                        </h4>
-                        <p class="text-lg text-gray-700 mb-4">
-                            Based on your results, you're perfectly positioned for a health breakthrough. 
-                            I'm accepting just <strong>5 new clients this month</strong> for personalized transformation coaching.
-                        </p>
-                        <div class="flex justify-center items-center space-x-8 mb-4">
-                            <div class="text-center">
-                                <div class="text-2xl font-bold text-purple-600">30-Minute</div>
-                                <div class="text-sm text-gray-600">Discovery Call</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl font-bold text-green-600">$150 Value</div>
-                                <div class="text-sm text-gray-600">Completely FREE</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl font-bold text-blue-600">100% Custom</div>
-                                <div class="text-sm text-gray-600">Based on Your Results</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 mb-6">
-                        <div class="flex items-center text-green-700">
-                            <i class="fas fa-check-circle mr-3"></i>
-                            <span>✅ Identify your #1 health transformation priority</span>
-                        </div>
-                        <div class="flex items-center text-green-700">
-                            <i class="fas fa-check-circle mr-3"></i>
-                            <span>✅ Create your personalized 90-day wellness roadmap</span>
-                        </div>
-                        <div class="flex items-center text-green-700">
-                            <i class="fas fa-check-circle mr-3"></i>
-                            <span>✅ Discover the simple changes that will transform your energy</span>
-                        </div>
-                        <div class="flex items-center text-green-700">
-                            <i class="fas fa-check-circle mr-3"></i>
-                            <span>✅ Get answers to your specific health questions</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <p class="text-xl font-semibold text-gray-800 mb-2">
-                            "You're just one conversation away from the transformation you deserve."
-                        </p>
-                        <p class="text-gray-600">
-                            <em>⏰ Only 3 spots remaining this month • This consultation normally costs $150 - yours FREE</em>
-                        </p>
-                    </div>
-
-                    <button onclick="bookConsultation()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-4 px-8 rounded-lg text-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 animate-pulse">
-                        <i class="fas fa-calendar-plus mr-3"></i>
-                        CLAIM MY FREE DISCOVERY SESSION NOW
+                <!-- Call to Action -->
+                <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4">Ready to Transform Your Health?</h3>
+                    <p class="text-lg mb-6">Book your complimentary discovery session to create your personalized wellness transformation plan.</p>
+                    <button onclick="bookConsultation()" class="px-8 py-3 bg-white text-purple-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-calendar-alt mr-2"></i>Claim My Free Discovery Session Now
                     </button>
-                    
-                    <div class="mt-4 text-sm text-gray-600">
-                        ✅ 100% Confidential  •  ✅ No Pressure  •  ✅ Life-Changing Insights
-                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Email Automation Setup Guide -->
-        <div id="emailSetupGuide" class="glass-card p-8 mt-8">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">
-                <i class="fas fa-cogs text-blue-600 mr-3"></i>
-                Email Automation Setup Guide
-            </h2>
-            
-            <div class="bg-blue-50 p-6 rounded-lg mb-6">
-                <h3 class="text-xl font-semibold mb-4">Gmail Integration Instructions</h3>
-                <ol class="list-decimal list-inside space-y-3 text-gray-700">
-                    <li>Enable Gmail API in your Google Cloud Console</li>
-                    <li>Create OAuth 2.0 credentials for your application</li>
-                    <li>Install Google Client Library: <code class="bg-gray-200 px-2 py-1 rounded">pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client</code></li>
-                    <li>Use the provided Python script to send automated emails</li>
-                    <li>Set up email templates for different wellness score ranges</li>
-                </ol>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Email Template 1 -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-3">Email Template 1: Welcome & Results (Immediate)</h4>
-                    <div class="email-template">
-Subject: Your Wellness Assessment Results - [Name]'s Transformation Plan Inside! 🌟
-
-Hi [Name],
-
-Congratulations on taking the first step toward your health transformation!
-
-Your Wellness Score: [Score]/100
-Your Wellness Level: [Level]
-
-Based on your assessment, here are your personalized recommendations:
-
-[Personalized recommendations based on lowest scoring areas]
-
-🎯 Your Next Step: 
-I'd love to discuss your results personally and create a custom 90-day transformation plan for you.
-
-Book your FREE Discovery Session: [Calendar Link]
-
-To your health,
-[Your Name]
-
-P.S. This consultation is normally $150, but I'm offering it FREE to help you get started on your wellness journey.
-                    </div>
-                </div>
-
-                <!-- Email Template 2 -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-3">Email Template 2: Follow-up (24 hours later)</h4>
-                    <div class="email-template">
-Subject: [Name], your transformation timeline is waiting... ⏰
-
-Hi [Name],
-
-I hope you had a chance to review your wellness assessment results.
-
-I've been thinking about your goals and the specific challenges you mentioned: "[Health Concern]"
-
-The good news? You're closer to a breakthrough than you might think.
-
-In my experience, people with your wellness profile typically see dramatic improvements in:
-- Energy levels (often 2-3x increase within 30 days)  
-- Sleep quality (deeper, more refreshing rest)
-- Stress management (feeling calm and centered)
-
-But here's the thing - timing matters.
-
-The next 30 days are crucial for setting the foundation of your transformation.
-
-I still have [Number] spots available for this month's Discovery Sessions.
-
-Ready to claim yours? [Calendar Link]
-
-To your vibrant health,
-[Your Name]
-
-P.S. Don't let another month go by feeling the same way. Your future self will thank you for taking action today.
-                    </div>
-                </div>
-
-                <!-- Email Template 3 -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-3">Email Template 3: Final Follow-up (3 days later)</h4>
-                    <div class="email-template">
-Subject: Last call for your FREE Discovery Session, [Name]
-
-Hi [Name],
-
-This is my final reminder about your complimentary Discovery Session.
-
-I know life gets busy, but I wanted to reach out one more time because your wellness assessment showed such incredible potential for transformation.
-
-Your score of [Score]/100 indicates you're positioned for a major breakthrough - but only if you take action.
-
-Here's what I've reserved for you:
-✅ 30-minute personalized consultation
-✅ Custom wellness roadmap  
-✅ Specific action steps for your situation
-✅ Answers to your health questions
-
-Value: $150
-Your investment: $0
-
-I have just 1 spot remaining for this month.
-
-If you're ready to finally feel amazing in your own body, claim it now: [Calendar Link]
-
-If not, I understand. Sometimes the timing isn't right.
-
-Either way, I wish you the very best on your wellness journey.
-
-To your health,
-[Your Name]
-                    </div>
-                </div>
-
-                <!-- Email Template 4 -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-3">Email Template 4: Value-Add Content (1 week later)</h4>
-                    <div class="email-template">
-Subject: 3 Simple Changes That Could Transform Your Energy, [Name]
-
-Hi [Name],
-
-Even though we haven't connected yet, I wanted to share something valuable with you.
-
-Based on your wellness assessment, here are 3 simple changes that could dramatically improve your energy levels:
-
-1. **The 10-Minute Morning Reset**
-   [Provide specific morning routine based on their stress/energy scores]
-
-2. **The Sleep Quality Hack** 
-   [Provide sleep tip based on their sleep score]
-
-3. **The Energy Sustaining Snack**
-   [Provide nutrition tip based on their overall scores]
-
-These might seem simple, but they're based on your specific assessment results.
-
-Try them for 7 days and see how you feel.
-
-If you'd like more personalized strategies like these, I'm here when you're ready.
-
-To your vibrant health,
-[Your Name]
-
-P.S. Small changes create big transformations. You've got this! 💪
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 bg-green-50 p-6 rounded-lg">
-                <h4 class="text-lg font-semibold mb-3 text-green-800">Python Script for Gmail Automation</h4>
-                <pre class="bg-white p-4 rounded-lg overflow-x-auto text-sm"><code>
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import schedule
-import time
-
-def send_automated_email(recipient_email, recipient_name, wellness_score, template_number):
-    """
-    Send automated email based on assessment results
-    """
-    sender_email = "your-email@gmail.com"
-    sender_password = "your-app-password"  # Use App Password, not regular password
-    
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    
-    # Select template based on template_number and wellness_score
-    if template_number == 1:
-        subject = f"Your Wellness Assessment Results - {recipient_name}'s Transformation Plan Inside! 🌟"
-        body = generate_results_email(recipient_name, wellness_score)
-    elif template_number == 2:
-        subject = f"{recipient_name}, your transformation timeline is waiting... ⏰"
-        body = generate_followup_email(recipient_name, wellness_score)
-    # Add more templates as needed
-    
-    msg['Subject'] = subject
-    msg.attach(MIMEText(body, 'html'))
-    
-    try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(sender_email, sender_password)
-        text = msg.as_string()
-        server.sendmail(sender_email, recipient_email, text)
-        server.quit()
-        print(f"Email sent successfully to {recipient_email}")
-    except Exception as e:
-        print(f"Error sending email: {str(e)}")
-
-# Schedule emails
-def schedule_email_sequence(recipient_email, recipient_name, wellness_score):
-    # Immediate email
-    send_automated_email(recipient_email, recipient_name, wellness_score, 1)
-    
-    # Schedule 24-hour follow-up
-    schedule.every(24).hours.do(send_automated_email, recipient_email, recipient_name, wellness_score, 2)
-    
-    # Schedule 72-hour follow-up  
-    schedule.every(72).hours.do(send_automated_email, recipient_email, recipient_name, wellness_score, 3)
-
-# Run scheduler
-while True:
-    schedule.run_pending()
-    time.sleep(3600)  # Check every hour
-                </code></pre>
             </div>
         </div>
     </div>
 
     <script>
-        // Assessment Logic
+        // Your Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
+
         let currentQuestion = 1;
-        let totalQuestions = 8;
+        let totalQuestions = 9;
         let answers = {};
-        let emailCaptured = false;
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateProgress();
-            attachEventListeners();
-        });
-
-        function attachEventListeners() {
-            // Radio option selection
-            document.querySelectorAll('.radio-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const questionName = this.dataset.question;
-                    const value = this.dataset.value;
-                    
-                    // Remove selected class from all options in this question
-                    document.querySelectorAll(`[data-question="${questionName}"]`).forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // Add selected class to clicked option
-                    this.classList.add('selected');
-                    
-                    // Store answer
-                    answers[questionName] = parseInt(value);
-                    
-                    // Enable next button
-                    document.getElementById('nextBtn').disabled = false;
-                    document.getElementById('nextBtn').classList.remove('opacity-50', 'cursor-not-allowed');
-                });
+        function selectAnswer(questionNum, value) {
+            answers[questionNum] = value;
+            
+            // Visual feedback
+            const options = document.querySelectorAll(`[data-question="${questionNum}"] .radio-option`);
+            options.forEach(option => {
+                const input = option.querySelector('input');
+                const content = option.querySelector('.radio-content');
+                if (input.value == value) {
+                    input.checked = true;
+                    content.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    content.style.color = 'white';
+                } else {
+                    input.checked = false;
+                    content.style.background = '';
+                    content.style.color = '';
+                }
             });
 
-            // Navigation buttons
-            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
-            document.getElementById('prevBtn').addEventListener('click', prevQuestion);
-            document.getElementById('submitBtn').addEventListener('click', submitAssessment);
-        }
-
-        function updateProgress() {
-            const progressPercentage = (currentQuestion / totalQuestions) * 100;
-            document.getElementById('progressBar').style.width = progressPercentage + '%';
-            document.getElementById('progressText').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+            // Auto-advance after selection
+            setTimeout(() => {
+                if (currentQuestion < 8) {
+                    nextQuestion();
+                } else if (currentQuestion === 8) {
+                    nextQuestion(); // Go to email form
+                }
+            }, 500);
         }
 
         function nextQuestion() {
             if (currentQuestion < totalQuestions) {
-                // Hide current question
                 document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('hidden');
-                
                 currentQuestion++;
-                
-                // Show next question
-                if (currentQuestion <= totalQuestions) {
-                    document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('hidden');
-                    updateProgress();
-                    
-                    // Disable next button until answer is selected
-                    document.getElementById('nextBtn').disabled = true;
-                    document.getElementById('nextBtn').classList.add('opacity-50', 'cursor-not-allowed');
-                }
-                
-                // Show/hide navigation buttons
-                document.getElementById('prevBtn').classList.remove('hidden');
-                
-            } else {
-                // Show email capture
-                showEmailCapture();
+                document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('hidden');
+                updateProgress();
+                updateButtons();
             }
         }
 
         function prevQuestion() {
             if (currentQuestion > 1) {
-                // Hide current question  
                 document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('hidden');
-                
                 currentQuestion--;
-                
-                // Show previous question
                 document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('hidden');
                 updateProgress();
-                
-                // Enable next button if answer exists
-                const questionName = Object.keys(answers).find(key => 
-                    document.querySelector(`[data-question="${currentQuestion}"]`).querySelector(`[data-question="${key}"]`)
-                );
-                if (answers[questionName]) {
-                    document.getElementById('nextBtn').disabled = false;
-                    document.getElementById('nextBtn').classList.remove('opacity-50', 'cursor-not-allowed');
-                }
-                
-                // Hide prev button if at first question
-                if (currentQuestion === 1) {
-                    document.getElementById('prevBtn').classList.add('hidden');
-                }
+                updateButtons();
             }
         }
 
-        function showEmailCapture() {
-            // Hide last question
-            document.querySelector(`[data-question="${totalQuestions}"]`).classList.add('hidden');
-            
-            // Show email capture
-            document.getElementById('emailCapture').classList.remove('hidden');
-            
-            // Hide next button, show submit button
-            document.getElementById('nextBtn').classList.add('hidden');
-            document.getElementById('submitBtn').classList.remove('hidden');
-            
-            // Update progress to show completion
-            document.getElementById('progressBar').style.width = '100%';
-            document.getElementById('progressText').textContent = 'Final Step: Get Your Results';
-        }
-
-       
-        
-        function calculateAndShowResults(userData) {
-            // Hide assessment form
-            document.getElementById('assessmentForm').style.display = 'none';
-            
-            // Calculate total score
-            const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
-            const maxScore = totalQuestions * 5;
-            const percentageScore = Math.round((totalScore / maxScore) * 100);
-            
-            // Determine wellness level
-            let scoreLevel, scoreDescription, scoreClass, transformationMessage;
-            
-            if (percentageScore >= 85) {
-                scoreLevel = "Excellent Wellness";
-                scoreDescription = "You're in fantastic health with just minor optimization opportunities.";
-                scoreClass = "score-excellent";
-                transformationMessage = `${userData.fullName}, you're already doing amazingly well! With your score of ${percentageScore}/100, you're in the top 10% of people I assess. Even small tweaks could take you to an incredible level of vitality and energy.`;
-            } else if (percentageScore >= 70) {
-                scoreLevel = "Good Wellness";  
-                scoreDescription = "You're on the right track with some excellent improvement opportunities.";
-                scoreClass = "score-good";
-                transformationMessage = `Fantastic news, ${userData.fullName}! Your score of ${percentageScore}/100 shows you have an excellent foundation. You're perfectly positioned for a breakthrough - typically people with your profile see dramatic improvements within 30-60 days with the right guidance.`;
-            } else if (percentageScore >= 50) {
-                scoreLevel = "Fair Wellness";
-                scoreDescription = "Significant improvement potential with targeted lifestyle changes.";
-                scoreClass = "score-fair"; 
-                transformationMessage = `${userData.fullName}, this is exciting! Your score of ${percentageScore}/100 indicates MASSIVE transformation potential. You're at the perfect starting point - I've seen people with similar scores completely transform their health and feel 10 years younger within 90 days.`;
+        function updateProgress() {
+            const progressPercentage = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progressPercentage + '%';
+            if (currentQuestion <= 8) {
+                document.getElementById('progressText').textContent = `Question ${currentQuestion} of 8`;
             } else {
-                scoreLevel = "Needs Attention";
-                scoreDescription = "Excellent opportunity for dramatic health transformation.";
-                scoreClass = "score-poor";
-                transformationMessage = `${userData.fullName}, I'm thrilled you took this assessment! Your score of ${percentageScore}/100 means you have the most incredible opportunity ahead of you. The people who see the most dramatic transformations start exactly where you are. You could literally feel like a completely different person in just 60-90 days.`;
+                document.getElementById('progressText').textContent = `Final Step - Get Your Results`;
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Show/hide previous button
+            if (currentQuestion === 1) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            // Show/hide next vs submit button
+            if (currentQuestion === 9) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function submitAssessment() {
+            // Validate email form
+            const fullName = document.getElementById('fullName').value.trim();
+            const emailAddress = document.getElementById('emailAddress').value.trim();
+            const emailConsent = document.getElementById('emailConsent').checked;
+            
+            if (!fullName || !emailAddress || !emailConsent) {
+                alert('Please fill in all required fields and agree to receive your wellness plan.');
+                return;
             }
             
-            // Display results
-            document.getElementById('totalScore').textContent = percentageScore;
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailAddress)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Get additional form data
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const healthConcern = document.getElementById('healthConcern').value.trim();
+            
+            // Send to Google Sheets
+            submitToGoogleSheets(fullName, emailAddress, phoneNumber);
+            
+            // Calculate and show results
+            calculateAndShowResults({
+                fullName,
+                emailAddress,
+                phoneNumber,
+                healthConcern,
+                answers
+            });
+        }
+
+        function submitToGoogleSheets(name, email, phone) {
+            // Calculate total score
+            let totalScore = 0;
+            for (let i = 1; i <= 8; i++) {
+                totalScore += answers[i] || 0;
+            }
+
+            const data = {
+                name: name,
+                email: email,
+                phone: phone || '',
+                totalScore: totalScore,
+                energyScore: answers[1] || 0,
+                sleepScore: answers[2] || 0,
+                stressScore: answers[3] || 0
+            };
+            
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Data sent to Google Sheets successfully');
+            })
+            .catch(error => {
+                console.error('Error sending to Google Sheets:', error);
+            });
+        }
+
+        function calculateAndShowResults(userData) {
+            // Calculate total score
+            let totalScore = 0;
+            for (let i = 1; i <= 8; i++) {
+                totalScore += answers[i] || 0;
+            }
+
+            // Hide assessment form and show results
+            document.getElementById('assessmentForm').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+
+            // Display score
+            document.getElementById('totalScore').textContent = totalScore;
+
+            // Determine score level and description
+            let scoreLevel, scoreDescription;
+            if (totalScore <= 20) {
+                scoreLevel = "Needs Immediate Attention";
+                scoreDescription = "Your results indicate significant opportunities for improvement. Let's create a personalized transformation plan!";
+            } else if (totalScore <= 35) {
+                scoreLevel = "Room for Growth";
+                scoreDescription = "You're on the right track, but there's tremendous potential for optimization. Small changes can yield big results!";
+            } else if (totalScore <= 50) {
+                scoreLevel = "Good Foundation";
+                scoreDescription = "You have solid wellness habits! Let's fine-tune your approach and take your health to the next level.";
+            } else {
+                scoreLevel = "Excellent Wellness";
+                scoreDescription = "Outstanding! You have strong wellness practices. Let's help you achieve peak performance and maintain this excellence.";
+            }
+
             document.getElementById('scoreLevel').textContent = scoreLevel;
             document.getElementById('scoreDescription').textContent = scoreDescription;
-            document.getElementById('scoreCircle').className = `score-circle ${scoreClass}`;
-            document.getElementById('transformationMessage').innerHTML = transformationMessage;
-            
-            // Generate category breakdown
+
+            // Generate category breakdown and opportunities
             generateCategoryBreakdown();
             generateOpportunities();
-            
-            // Show results section
-            document.getElementById('resultsSection').classList.remove('hidden');
-            
-            // Scroll to results
-            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-            
-            // Simulate sending email (in real app, make API call)
-            console.log('Assessment data ready for email automation:', userData);
-            alert(`Thank you ${userData.fullName}! Your personalized wellness plan has been sent to ${userData.emailAddress}. Check your inbox (and spam folder) in the next few minutes.`);
+
+            // Show thank you message
+            setTimeout(() => {
+                alert(`Thank you ${userData.fullName}! Your personalized wellness plan has been sent to ${userData.emailAddress}. Check your inbox (and spam folder) in the next few minutes.`);
+            }, 1000);
         }
 
         function generateCategoryBreakdown() {
             const categories = [
-                { name: 'Energy Levels', value: answers.energy || 0, icon: 'fas fa-bolt', max: 5 },
-                { name: 'Sleep Quality', value: answers.sleep || 0, icon: 'fas fa-bed', max: 5 },
-                { name: 'Stress Management', value: answers.stress || 0, icon: 'fas fa-brain', max: 5 },
-                { name: 'Physical Health', value: answers.physical || 0, icon: 'fas fa-heartbeat', max: 5 },
-                { name: 'Mental Wellbeing', value: answers.mood || 0, icon: 'fas fa-smile', max: 5 },
-                { name: 'Weight Satisfaction', value: answers.weight || 0, icon: 'fas fa-weight', max: 5 },
-                { name: 'Exercise Frequency', value: answers.exercise || 0, icon: 'fas fa-running', max: 5 },
-                { name: 'Overall Health', value: answers.overall || 0, icon: 'fas fa-heart', max: 5 }
+                { name: 'Energy Levels', value: answers[1] || 0, icon: 'fas fa-bolt', max: 8 },
+                { name: 'Sleep Quality', value: answers[2] || 0, icon: 'fas fa-bed', max: 8 },
+                { name: 'Stress Management', value: answers[3] || 0, icon: 'fas fa-brain', max: 8 },
+                { name: 'Physical Health', value: answers[4] || 0, icon: 'fas fa-heartbeat', max: 8 },
+                { name: 'Mental Wellbeing', value: answers[5] || 0, icon: 'fas fa-smile', max: 8 },
+                { name: 'Weight Satisfaction', value: answers[6] || 0, icon: 'fas fa-weight', max: 8 },
+                { name: 'Exercise Frequency', value: answers[7] || 0, icon: 'fas fa-running', max: 8 },
+                { name: 'Overall Health', value: answers[8] || 0, icon: 'fas fa-heart', max: 8 }
             ];
             
             const breakdown = document.getElementById('categoryBreakdown');
@@ -1081,16 +723,15 @@ while True:
         }
 
         function generateOpportunities() {
-            // Find lowest scoring areas for improvement opportunities
             const categories = [
-                { name: 'Energy Levels', value: answers.energy || 0, tip: 'Optimize your morning routine and nutrient timing' },
-                { name: 'Sleep Quality', value: answers.sleep || 0, tip: 'Develop a consistent sleep hygiene protocol' },
-                { name: 'Stress Management', value: answers.stress || 0, tip: 'Learn evidence-based stress reduction techniques' },
-                { name: 'Physical Health', value: answers.physical || 0, tip: 'Address underlying inflammation and nutrient deficiencies' },
-                { name: 'Mental Wellbeing', value: answers.mood || 0, tip: 'Implement daily mindfulness and emotional regulation practices' },
-                { name: 'Weight Management', value: answers.weight || 0, tip: 'Create a sustainable, personalized nutrition plan' },
-                { name: 'Exercise Habits', value: answers.exercise || 0, tip: 'Design an enjoyable, progressive fitness routine' },
-                { name: 'Overall Vitality', value: answers.overall || 0, tip: 'Integrate all health pillars for maximum synergy' }
+                { name: 'Energy Levels', value: answers[1] || 0, tip: 'Optimize your morning routine and nutrient timing' },
+                { name: 'Sleep Quality', value: answers[2] || 0, tip: 'Develop a consistent sleep hygiene protocol' },
+                { name: 'Stress Management', value: answers[3] || 0, tip: 'Learn evidence-based stress reduction techniques' },
+                { name: 'Physical Health', value: answers[4] || 0, tip: 'Address underlying inflammation and nutrient deficiencies' },
+                { name: 'Mental Wellbeing', value: answers[5] || 0, tip: 'Implement daily mindfulness and emotional regulation practices' },
+                { name: 'Weight Management', value: answers[6] || 0, tip: 'Create a sustainable, personalized nutrition plan' },
+                { name: 'Exercise Habits', value: answers[7] || 0, tip: 'Design an enjoyable, progressive fitness routine' },
+                { name: 'Overall Vitality', value: answers[8] || 0, tip: 'Integrate all health pillars for maximum synergy' }
             ];
             
             // Sort by lowest scores (biggest opportunities)
@@ -1116,204 +757,9 @@ while True:
         }
 
         function bookConsultation() {
-            // In a real application, this would integrate with your booking system
-            alert('Redirecting to booking calendar...\n\nIn your actual implementation, this would link to:\n• Calendly booking page\n• Your practice scheduling system\n• Direct phone number for booking\n• Contact form');
-            
-            // Example implementations:
-            // window.open('https://calendly.com/yourusername/discovery-session', '_blank');
-            // window.location.href = 'mailto:your@email.com?subject=Discovery Session Booking&body=Hi, I just completed the wellness assessment and would like to book my free discovery session.';
-            // window.location.href = 'tel:+1555123456';
+            alert('Redirecting to booking calendar...\n\nIn your actual implementation, this would link to your booking system or contact information.');
+            // Example: window.open('https://calendly.com/yourusername/discovery-session', '_blank');
         }
-
-        // Auto-save progress
-        function saveProgress() {
-            localStorage.setItem('wellnessAssessmentProgress', JSON.stringify({
-                currentQuestion,
-                answers,
-                timestamp: new Date().toISOString()
-            }));
-        }
-
-        // Load saved progress
-        function loadProgress() {
-            const saved = localStorage.getItem('wellnessAssessmentProgress');
-            if (saved) {
-                const data = JSON.parse(saved);
-                // Only load if less than 24 hours old
-                const savedTime = new Date(data.timestamp);
-                const now = new Date();
-                const hoursDiff = (now - savedTime) / (1000 * 60 * 60);
-                
-                if (hoursDiff < 24) {
-                    currentQuestion = data.currentQuestion;
-                    answers = data.answers;
-                    
-                    // Update UI to match saved state
-                    document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('hidden');
-                    updateProgress();
-                }
-            }
-        }
-
-        // Save progress whenever an answer is selected
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.radio-option')) {
-                setTimeout(saveProgress, 100);
-            }
-        });
     </script>
-<script>
-
-<script>
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
-
-function submitToGoogleSheets(name, email, phone) {
-    alert('Sending to Google Sheets: ' + name + ' - ' + email);
-    
-    let totalScore = 0;
-    if (typeof answers !== 'undefined') {
-        for (let i = 0; i < answers.length; i++) {
-            totalScore += answers[i];
-        }
-    }
-    
-    const data = {
-        name: name,
-        email: email, 
-        phone: phone || '',
-        totalScore: totalScore,
-        energyScore: Math.floor(totalScore / 8),
-        sleepScore: Math.floor(totalScore / 8),
-        stressScore: Math.floor(totalScore / 8)
-    };
-    
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(result => {
-        alert('SUCCESS: Data sent to Google Sheets!');
-    })
-    .catch(error => {
-        alert('ERROR: ' + error);
-    });
-}
-
-function submitAssessment() {
-    // Get form data
-    const fullName = document.getElementById('fullName').value.trim();
-    const emailAddress = document.getElementById('emailAddress').value.trim();
-    const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const emailConsent = document.getElementById('emailConsent').checked;
-    
-    if (!fullName || !emailAddress || !emailConsent) {
-        alert('Please fill in all required fields and agree to receive your wellness plan.');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailAddress)) {
-        alert('Please enter a valid email address.');
-        return;
-    }
-    
-    // Send to Google Sheets FIRST
-    submitToGoogleSheets(fullName, emailAddress, phoneNumber);
-    
-    // Then continue with your existing functionality
-    calculateAndShowResults({
-        fullName: fullName,
-        emailAddress: emailAddress,
-        phoneNumber: phoneNumber,
-        answers: answers
-    });
-}
-
-// Make sure this runs when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Connect the submit button
-    const submitBtn = document.getElementById('submitBtn');
-    if (submitBtn) {
-        submitBtn.addEventListener('click', submitAssessment);
-    }
-});
-
-// Add all your other existing functions here (generateCategoryBreakdown, etc.)
-function generateCategoryBreakdown() {
-    const categories = [
-        { name: 'Energy Levels', value: answers.energy || 0, icon: 'fas fa-bolt', max: 5 },
-        { name: 'Sleep Quality', value: answers.sleep || 0, icon: 'fas fa-bed', max: 5 },
-        { name: 'Stress Management', value: answers.stress || 0, icon: 'fas fa-brain', max: 5 },
-        { name: 'Physical Health', value: answers.physical || 0, icon: 'fas fa-heartbeat', max: 5 },
-        { name: 'Mental Wellbeing', value: answers.mood || 0, icon: 'fas fa-smile', max: 5 },
-        { name: 'Weight Satisfaction', value: answers.weight || 0, icon: 'fas fa-weight', max: 5 },
-        { name: 'Exercise Frequency', value: answers.exercise || 0, icon: 'fas fa-running', max: 5 },
-        { name: 'Overall Health', value: answers.overall || 0, icon: 'fas fa-heart', max: 5 }
-    ];
-    
-    const breakdown = document.getElementById('categoryBreakdown');
-    breakdown.innerHTML = '';
-    
-    categories.forEach(category => {
-        const percentage = (category.value / category.max) * 100;
-        let colorClass = percentage >= 80 ? 'text-green-600' : percentage >= 60 ? 'text-blue-600' : percentage >= 40 ? 'text-yellow-600' : 'text-red-600';
-        
-        breakdown.innerHTML += `
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <i class="${category.icon} ${colorClass} mr-2"></i>
-                    <span class="text-sm">${category.name}</span>
-                </div>
-                <div class="flex items-center">
-                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
-                        <div class="h-2 rounded-full ${colorClass.replace('text-', 'bg-')}" style="width: ${percentage}%"></div>
-                    </div>
-                    <span class="text-sm font-semibold">${category.value}/${category.max}</span>
-                </div>
-            </div>
-        `;
-    });
-}
-
-function generateOpportunities() {
-    // Your existing generateOpportunities code
-    const categories = [
-        { name: 'Energy Levels', value: answers.energy || 0, tip: 'Optimize your morning routine and nutrient timing' },
-        { name: 'Sleep Quality', value: answers.sleep || 0, tip: 'Develop a consistent sleep hygiene protocol' },
-        { name: 'Stress Management', value: answers.stress || 0, tip: 'Learn evidence-based stress reduction techniques' },
-        { name: 'Physical Health', value: answers.physical || 0, tip: 'Address underlying inflammation and nutrient deficiencies' },
-        { name: 'Mental Wellbeing', value: answers.mood || 0, tip: 'Implement daily mindfulness and emotional regulation practices' },
-        { name: 'Weight Management', value: answers.weight || 0, tip: 'Create a sustainable, personalized nutrition plan' },
-        { name: 'Exercise Habits', value: answers.exercise || 0, tip: 'Design an enjoyable, progressive fitness routine' },
-        { name: 'Overall Vitality', value: answers.overall || 0, tip: 'Integrate all health pillars for maximum synergy' }
-    ];
-    
-    categories.sort((a, b) => a.value - b.value);
-    
-    const opportunities = document.getElementById('opportunities');
-    opportunities.innerHTML = '';
-    
-    categories.slice(0, 4).forEach((category, index) => {
-        opportunities.innerHTML += `
-            <div class="flex items-start">
-                <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1">
-                    ${index + 1}
-                </div>
-                <div>
-                    <div class="font-semibold text-gray-800">${category.name}</div>
-                    <div class="text-sm text-gray-600">${category.tip}</div>
-                </div>
-            </div>
-        `;
-    });
-}
-
-function bookConsultation() {
-    alert('Redirecting to booking calendar...');
-}
-</script>
-
-    
+</body>
+</html>
