@@ -775,42 +775,19 @@
         }
 
         function bookConsultation() {
+    // Get the email from the form
+    const email = document.getElementById('email').value;
+    
+    // Update the Google Sheet to mark appointment as booked
+    if (email) {
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
+        fetch(`${scriptUrl}?email=${encodeURIComponent(email)}`);
+    }
+    
+    // Redirect to Calendly
     window.location.href = "https://calendly.com/fuelgeist1/your-free-discovery-session";
 }
 
-
-        // Initialize the assessment
-        document.addEventListener('DOMContentLoaded', function() {
-            updateProgress();
-            updateButtons();
+    
             
-            // Add some loading animation to the progress bar
-            setTimeout(() => {
-                document.getElementById('progressBar').style.transition = 'width 0.3s ease';
-            }, 100);
-        });
 
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === 'Enter') {
-                if (currentQuestion < 9 && document.getElementById('nextBtn').style.display !== 'none') {
-                    nextQuestion();
-                }
-            } else if (e.key === 'ArrowLeft') {
-                if (currentQuestion > 1) {
-                    prevQuestion();
-                }
-            }
-        });
-    </script>
-</body>
-</html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpDNM%2BsAgwJGFvD9AKZv%2BYKmfaibN8SWSOThbqQK6kcwCfystgvy8ZzpBZvf%2FnHUpqVSQI9yoPqfTC8EyrMXj5PwP8yFc5vZMDFWbbHZ8K%2BWoqgzubS9USih00Tn%2BwYKxkbbs2kFxRoOcdCENnglAycF9vC8luUajdfjFrbeblL1B0y1p31cuEjqGr1Npuw%2F5GpHJZmxL7kx1vP%2Bz%2B8Dp1V7n8o86tMDCf0ZKxh8mYRV0cre2wJaqGjySUZ7gSHVjpXTjpmyNOctP7ldR32McF5wDVExMI7VmNtCXvWHoLscqT8vTuS0el13MYnpd9fjgglE6t7%2FsTsVXXQ9o5JQcdqJcLDC3s6N4kCfr1oNVzI6Kpps8lSXUaly9g%2BkePZ5f%2F8OZBb%2Bnm6JFNBBs6sKmo%2FAF3vMH3AtcbRxNQfRgcXiMUD3bg2iabvJHFBssKtHFoEF8ooFrvy1RsIPh%2BOtmmUjAqjHcVvaJFcv7ijOEZLmkCYzifnP7%2FhRQME%2FtSU1dfVENlyedi0z4VZAkv3d%2B5k%3D";
-        window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpDNM+sAgwJGFvD9AKZv+YKmfaibN8SWSOThbqQK6kcwCfystgvy8ZzpBZvf/nHUpqVSQI9yoPqfTC8EyrMXj5PwP8yFc5vZMDFWbbHZ8K+WoqgzubS9USih00Tn+wYKxkbbs2kFxRoOcdCENnglAycF9vC8luUajdfjFrbeblL1B0y1p31cuEjqGr1Npuw/5GpHJZmxL7kx1vP+z+8Dp1V7n8o86tMDCf0ZKxh8mYRV0cre2wJaqGjySUZ7gSHVjpXTjpmyNOctP7ldR32McF5wDVExMI7VmNtCXvWHoLscqT8vTuS0el13MYnpd9fjgglE6t7/sTsVXXQ9o5JQcdqJcLDC3s6N4kCfr1oNVzI6Kpps8lSXUaly9g+kePZ5f/8OZBb+nm6JFNBBs6sKmo/AF3vMH3AtcbRxNQfRgcXiMUD3bg2iabvJHFBssKtHFoEF8ooFrvy1RsIPh+OtmmUjAqjHcVvaJFcv7ijOEZLmkCYzifnP7/hRQME/tSU1dfVENlyedi0z4VZAkv3d+5k=";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
