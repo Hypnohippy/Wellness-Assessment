@@ -987,45 +987,8 @@ while True:
             document.getElementById('progressText').textContent = 'Final Step: Get Your Results';
         }
 
-        function submitAssessment() {
-            // Validate email form
-            const fullName = document.getElementById('fullName').value.trim();
-            const emailAddress = document.getElementById('emailAddress').value.trim();
-            const emailConsent = document.getElementById('emailConsent').checked;
-            
-            if (!fullName || !emailAddress || !emailConsent) {
-                alert('Please fill in all required fields and agree to receive your wellness plan.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailAddress)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Collect additional form data
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
-            const healthConcern = document.getElementById('healthConcern').value.trim();
-            
-            // Store email data
-            const emailData = {
-                fullName,
-                emailAddress,
-                phoneNumber,
-                healthConcern,
-                submissionDate: new Date().toISOString(),
-                answers: answers
-            };
-            
-            // Store in localStorage (in real app, send to server)
-            localStorage.setItem('wellnessAssessmentData', JSON.stringify(emailData));
-            
-            // Calculate and show results
-            calculateAndShowResults(emailData);
-        }
-
+       
+        
         function calculateAndShowResults(userData) {
             // Hide assessment form
             document.getElementById('assessmentForm').style.display = 'none';
