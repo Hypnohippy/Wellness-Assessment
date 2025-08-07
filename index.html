@@ -1200,6 +1200,46 @@ while True:
             }
         });
     </script>
+<script>
+const GOOGLE_SCRIPT_URL const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
+ 
+
+function submitToGoogleSheets() {
+    const name = document.querySelector('input[type="text"]').value;
+    const email = document.querySelector('input[type="email"]').value;
+    
+    let totalScore = 0;
+    const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+    radioButtons.forEach(radio => {
+        totalScore += parseInt(radio.value) || 0;
+    });
+    
+    const data = {
+        name: name,
+        email: email,
+        phone: '',
+        totalScore: totalScore,
+        energyScore: Math.floor(totalScore / 4),
+        sleepScore: Math.floor(totalScore / 4),
+        stressScore: Math.floor(totalScore / 4)
+    };
+    
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert('Thank you! Your results have been saved and you will receive an email shortly.');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Assessment completed! You will receive your results via email.');
+    });
+}
+</script>
+</body>
 </body>
 </html>
     <script id="html_badge_script1">
