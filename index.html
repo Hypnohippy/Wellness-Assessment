@@ -1164,27 +1164,28 @@ while True:
         });
     </script>
 <script>
-const GOOGLE_SCRIPT_URL const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
- 
 
-function submitToGoogleSheets() {
-    const name = document.querySelector('input[type="text"]').value;
-    const email = document.querySelector('input[type="email"]').value;
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0Ghx20qBfnV5rPUHOT99aikmsyaEnahYiductvhmB7qSE0Pf05ujG59WoqRbn0lgDsQ/exec';
+
+
+function submitToGoogleSheets(name, email, phone) {
+    alert('Trying to send: ' + name + ' - ' + email); // Test alert
     
     let totalScore = 0;
-    const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
-    radioButtons.forEach(radio => {
-        totalScore += parseInt(radio.value) || 0;
-    });
+    if (typeof answers !== 'undefined') {
+        for (let i = 0; i < answers.length; i++) {
+            totalScore += answers[i];
+        }
+    }
     
     const data = {
         name: name,
-        email: email,
-        phone: '',
+        email: email, 
+        phone: phone || '',
         totalScore: totalScore,
-        energyScore: Math.floor(totalScore / 4),
-        sleepScore: Math.floor(totalScore / 4),
-        stressScore: Math.floor(totalScore / 4)
+        energyScore: Math.floor(totalScore / 8),
+        sleepScore: Math.floor(totalScore / 8),
+        stressScore: Math.floor(totalScore / 8)
     };
     
     fetch(GOOGLE_SCRIPT_URL, {
@@ -1194,10 +1195,12 @@ function submitToGoogleSheets() {
     })
     .then(response => response.text())
     .then(result => {
-        alert('Thank you! Your results have been saved and you will receive an email shortly.');
+        alert('SUCCESS: Data sent to Google Sheets!');
     })
     .catch(error => {
-        console.error('Error:', error);
+        alert('ERROR: ' + error);
+    });
+}
         alert('Assessment completed! You will receive your results via email.');
     });
 }
