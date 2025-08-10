@@ -553,56 +553,47 @@
         }
 
         async function submitToGoogleSheets(results) {
-            const submissionData = {
-                timestamp: new Date().toISOString(),
-                name: contactInfo.name,
-                email: contactInfo.email,
-                phone: contactInfo.phone,
-                totalScore: results.totalScore,
-                percentage: results.percentage,
-                wellnessLevel: results.wellnessLevel,
-                ...results.categoryScores,
-                emailSent: 'Pending',
-                appointmentBooked: 'No'
-            };
+    // Create proper form data with individual category scores
+    const formData = new URLSearchParams();
+    
+    // Add basic info
+    formData.append('timestamp', new Date().toISOString());
+    formData.append('name', contactInfo.name);
+    formData.append('email', contactInfo.email);
+    formData.append('phone', contactInfo.phone);
+    formData.append('totalScore', results.totalScore);
+    formData.append('percentage', results.percentage);
+    formData.append('wellnessLevel', results.wellnessLevel);
+    
+    // Add individual category scores
+    formData.append('Physical Energy', results.categoryScores['Physical Energy'] || 0);
+    formData.append('Sleep Quality', results.categoryScores['Sleep Quality'] || 0);
+    formData.append('Digestive Health', results.categoryScores['Digestive Health'] || 0);
+    formData.append('Mental Clarity', results.categoryScores['Mental Clarity'] || 0);
+    formData.append('Emotional Well-being', results.categoryScores['Emotional Well-being'] || 0);
+    formData.append('Physical Fitness', results.categoryScores['Physical Fitness'] || 0);
+    formData.append('Stress Management', results.categoryScores['Stress Management'] || 0);
+    formData.append('Life Satisfaction', results.categoryScores['Life Satisfaction'] || 0);
+    
+    formData.append('emailSent', 'Pending');
+    formData.append('appointmentBooked', 'No');
+    
+    try {
+        const response = await fetch(CONFIG.scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString()
+        });
+        
+        console.log('Data submitted successfully');
+        
+    } catch (error) {
+        console.error('Error submitting data:', error);
+    }
+}
 
-            try {
-                const response = await fetch(CONFIG.scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(submissionData).toString()
-                });
-                
-                console.log('Data submitted successfully');
-                
-            } catch (error) {
-                console.error('Error submitting data:', error);
-            }
-        }
-
-        async function bookDiscoverySession() {
-            // Update spreadsheet to mark appointment as booked
-            try {
-                const updateData = {
-                    email: contactInfo.email,
-                    appointmentBooked: 'Yes',
-                    bookingTimestamp: new Date().toISOString()
-                };
-                
-                await fetch(`${CONFIG.scriptURL}?${new URLSearchParams(updateData).toString()}`, {
-                    method: 'GET',
-                    mode: 'no-cors'
-                });
-                
-            } catch (error) {
-                console.error('Error updating booking status:', error);
-            }
-            
-            // Redirect to Calendly
-            window.location.href = CONFIG.calendlyURL;
         }
 
         // Initialize the application
