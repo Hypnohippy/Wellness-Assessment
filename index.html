@@ -49,6 +49,16 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+        .discovery-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+            color: white !important;
+            border: none !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .discovery-btn:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+            color: white !important;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
@@ -104,7 +114,7 @@
                     </div>
                 </div>
 
-                <button onclick="startAssessment()" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <button id="startBtn" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                     <i class="fas fa-play mr-2"></i>
                     Start Your Assessment
                 </button>
@@ -146,7 +156,7 @@
                 </div>
                 
                 <div class="text-center">
-                    <button type="button" onclick="proceedToQuestions()" 
+                    <button type="button" id="continueBtn"
                             class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <i class="fas fa-arrow-right mr-2"></i>
                         Continue to Assessment
@@ -181,8 +191,8 @@
                     <p class="text-gray-700 mb-4">
                         Claim your complimentary Discovery Session to create your personalized wellness transformation plan!
                     </p>
-                    <button onclick="bookDiscoverySession()" 
-                            class="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse">
+                    <button id="discoveryBtn"
+                            class="discovery-btn font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse">
                         <i class="fas fa-calendar-check mr-2"></i>
                         Claim My FREE Discovery Session
                     </button>
@@ -209,7 +219,6 @@
         // Configuration
         const CONFIG = {
             scriptURL: 'https://script.google.com/macros/s/AKfycbxPjzhHJoNzdecTA6ceq6BsWXqh4Qr5CQG-_R1P9vMPbqbjJwTuaNRt3X9qtHyEj4lzlw/exec',
-
             calendlyURL: 'https://calendly.com/fuelgeist1/your-free-discovery-session',
             whatsappNumber: '447508117864',
             practitionerEmail: 'david@fuelgeist.co.uk'
@@ -553,61 +562,99 @@
         }
 
         async function submitToGoogleSheets(results) {
-    // Create proper form data with individual category scores
-    const formData = new URLSearchParams();
-    
-    // Add basic info
-    formData.append('timestamp', new Date().toISOString());
-    formData.append('name', contactInfo.name);
-    formData.append('email', contactInfo.email);
-    formData.append('phone', contactInfo.phone);
-    formData.append('totalScore', results.totalScore);
-    formData.append('percentage', results.percentage);
-    formData.append('wellnessLevel', results.wellnessLevel);
-    
-    // Add individual category scores
-    formData.append('Physical Energy', results.categoryScores['Physical Energy'] || 0);
-    formData.append('Sleep Quality', results.categoryScores['Sleep Quality'] || 0);
-    formData.append('Digestive Health', results.categoryScores['Digestive Health'] || 0);
-    formData.append('Mental Clarity', results.categoryScores['Mental Clarity'] || 0);
-    formData.append('Emotional Well-being', results.categoryScores['Emotional Well-being'] || 0);
-    formData.append('Physical Fitness', results.categoryScores['Physical Fitness'] || 0);
-    formData.append('Stress Management', results.categoryScores['Stress Management'] || 0);
-    formData.append('Life Satisfaction', results.categoryScores['Life Satisfaction'] || 0);
-    
-    formData.append('emailSent', 'Pending');
-    formData.append('appointmentBooked', 'No');
-    
-    try {
-        const response = await fetch(CONFIG.scriptURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formData.toString()
-        });
-        
-        console.log('Data submitted successfully');
-        
-    } catch (error) {
-        console.error('Error submitting data:', error);
-    }
-}
-
+            // Create proper form data with individual category scores
+            const formData = new URLSearchParams();
+            
+            // Add basic info
+            formData.append('timestamp', new Date().toISOString());
+            formData.append('name', contactInfo.name);
+            formData.append('email', contactInfo.email);
+            formData.append('phone', contactInfo.phone);
+            formData.append('totalScore', results.totalScore);
+            formData.append('percentage', results.percentage);
+            formData.append('wellnessLevel', results.wellnessLevel);
+            
+            // Add individual category scores
+            formData.append('Physical Energy', results.categoryScores['Physical Energy'] || 0);
+            formData.append('Sleep Quality', results.categoryScores['Sleep Quality'] || 0);
+            formData.append('Digestive Health', results.categoryScores['Digestive Health'] || 0);
+            formData.append('Mental Clarity', results.categoryScores['Mental Clarity'] || 0);
+            formData.append('Emotional Well-being', results.categoryScores['Emotional Well-being'] || 0);
+            formData.append('Physical Fitness', results.categoryScores['Physical Fitness'] || 0);
+            formData.append('Stress Management', results.categoryScores['Stress Management'] || 0);
+            formData.append('Life Satisfaction', results.categoryScores['Life Satisfaction'] || 0);
+            
+            formData.append('emailSent', 'Pending');
+            formData.append('appointmentBooked', 'No');
+            
+            try {
+                const response = await fetch(CONFIG.scriptURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData.toString()
+                });
+                
+                console.log('Data submitted successfully');
+                
+            } catch (error) {
+                console.error('Error submitting data:', error);
+            }
         }
 
-        // Initialize the application
+        async function bookDiscoverySession() {
+            // Update spreadsheet to mark appointment as booked
+            try {
+                const updateData = new URLSearchParams();
+                updateData.append('email', contactInfo.email);
+                updateData.append('appointmentBooked', 'Yes');
+                updateData.append('bookingTimestamp', new Date().toISOString());
+                
+                await fetch(`${CONFIG.scriptURL}?${updateData.toString()}`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                
+            } catch (error) {
+                console.error('Error updating booking status:', error);
+            }
+            
+            // Redirect to Calendly
+            window.location.href = CONFIG.calendlyURL;
+        }
+
+        // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
+            // Start button
+            const startBtn = document.getElementById('startBtn');
+            if (startBtn) {
+                startBtn.addEventListener('click', startAssessment);
+            }
+
+            // Continue button
+            const continueBtn = document.getElementById('continueBtn');
+            if (continueBtn) {
+                continueBtn.addEventListener('click', proceedToQuestions);
+            }
+
+            // Discovery button
+            const discoveryBtn = document.getElementById('discoveryBtn');
+            if (discoveryBtn) {
+                discoveryBtn.addEventListener('click', bookDiscoverySession);
+            }
+
             console.log('Wellness Assessment loaded successfully');
         });
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96cea7e62be1d275","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlZ0t1Vv0N7uVf%2FWtdo8Tv59QomSK5DNsoUV3NWysUmI7dy2%2BSh6kfxXD1sks7ZdWuBJrpQ4rHCa1kJ9lO7dJmIzOSLobaq2%2BRS5eia3ES%2Fh8mWItu68gWKXtFqPVaYvlUPJviNWA4kVkDt5jOltbYoiqgtsROqsWar1nQs%2Fd3ZOUMpsGvUvzwmb7Fv8Dkxu1tKmjw3zeDA%2B6dXeBZ6NUIqaQRDIWePnIC8CL%2BOhFY95xhok6TV7ap2dsH8YmJfp0uVMUYUh3oOkpDgSlZP3j5II1BK40rwpHPn4deYqii7oUBmSBHlOMAeVymRpUg8XpIZR21JSzaFLo5FbmgB7Z2x19ud5l7G7mu18FLgzalKvhayCGOZ4CuCiRs6Sys%2BR0VZ%2BIZRhkFu6cNaK7GE%2FVXmWkx%2Fx2QKZe9uhAQxjbWy1V6hrOfkPfoW0dJt5UKwEpwl5xMthSOrEePMUrKwNH0%2FsU0WW%2FHIg38Tuc%2Fi5awPXvhJgFDboytSgvfN36sXvFLhRnNr9pDYeLEStlDTxx0Y%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlUgaNM6zIW5Cek2KJVerk0VBgr2Jq7i%2Fqzm2opUSPXhmuNu%2BqxslzxhzY347%2BTQpfLM8ap62sT81sPgVsFQ5GnYjBFwMJggTT3eMSELdLLKVWDBhYbFbZTKXeSRBMHXtHZAILjMhHV4Ky%2F4skVXz8qISWqPl45tltL7%2B%2BTwsCXIGtGArctIshSNFXqiLV%2BJDsTo0f5BYyf2iPvBspVIDxDblO1qIUWEAf5CtxhQy%2BIzUDM%2F1D5h7x6QIRj55w3Lyh%2FgXezU3XKHo3EeAN0Jgd1fvYVqv%2FQ9Zx160zWFB7HTqFsSj75bF8SkZlKyGEhp7FPH2iagwdTiXb47cciiCQi%2BzN3U%2F7qJB1XIxYSTGGp4Opo3l9KUOWsS3FdUAftmClnENsLUeKmaBq7VVQXMAIcGtp84Ahb%2Bt%2F1vPAXuMlNbr1dsc6Rd0vnqhPGmeBbcUrE3SxBn4bhH%2BchZ5mwx%2FeItHZ38ntFQdj44haWvGOm49oG2c%2BGJP5uuyXlNwtS8YYkX1p1nJmegbsUeVX3dnw0%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlZ0t1Vv0N7uVf/Wtdo8Tv59QomSK5DNsoUV3NWysUmI7dy2+Sh6kfxXD1sks7ZdWuBJrpQ4rHCa1kJ9lO7dJmIzOSLobaq2+RS5eia3ES/h8mWItu68gWKXtFqPVaYvlUPJviNWA4kVkDt5jOltbYoiqgtsROqsWar1nQs/d3ZOUMpsGvUvzwmb7Fv8Dkxu1tKmjw3zeDA+6dXeBZ6NUIqaQRDIWePnIC8CL+OhFY95xhok6TV7ap2dsH8YmJfp0uVMUYUh3oOkpDgSlZP3j5II1BK40rwpHPn4deYqii7oUBmSBHlOMAeVymRpUg8XpIZR21JSzaFLo5FbmgB7Z2x19ud5l7G7mu18FLgzalKvhayCGOZ4CuCiRs6Sys+R0VZ+IZRhkFu6cNaK7GE/VXmWkx/x2QKZe9uhAQxjbWy1V6hrOfkPfoW0dJt5UKwEpwl5xMthSOrEePMUrKwNH0/sU0WW/HIg38Tuc/i5awPXvhJgFDboytSgvfN36sXvFLhRnNr9pDYeLEStlDTxx0Y=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlUgaNM6zIW5Cek2KJVerk0VBgr2Jq7i/qzm2opUSPXhmuNu+qxslzxhzY347+TQpfLM8ap62sT81sPgVsFQ5GnYjBFwMJggTT3eMSELdLLKVWDBhYbFbZTKXeSRBMHXtHZAILjMhHV4Ky/4skVXz8qISWqPl45tltL7++TwsCXIGtGArctIshSNFXqiLV+JDsTo0f5BYyf2iPvBspVIDxDblO1qIUWEAf5CtxhQy+IzUDM/1D5h7x6QIRj55w3Lyh/gXezU3XKHo3EeAN0Jgd1fvYVqv/Q9Zx160zWFB7HTqFsSj75bF8SkZlKyGEhp7FPH2iagwdTiXb47cciiCQi+zN3U/7qJB1XIxYSTGGp4Opo3l9KUOWsS3FdUAftmClnENsLUeKmaBq7VVQXMAIcGtp84Ahb+t/1vPAXuMlNbr1dsc6Rd0vnqhPGmeBbcUrE3SxBn4bhH+chZ5mwx/eItHZ38ntFQdj44haWvGOm49oG2c+GJP5uuyXlNwtS8YYkX1p1nJmegbsUeVX3dnw0=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
