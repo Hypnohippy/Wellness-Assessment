@@ -49,15 +49,16 @@
             border-radius: 4px;
             margin: 10px 0;
         }
-        .discovery-btn {
-            background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-            color: white !important;
-            border: none !important;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        .discovery-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+            color: #1a202c !important;
+            font-weight: bold !important;
+            border: 2px solid #FF6B35 !important;
         }
-        .discovery-btn:hover {
-            background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
-            color: white !important;
+        .discovery-button:hover {
+            background: linear-gradient(135deg, #FFA500, #FF6B35) !important;
+            color: #1a202c !important;
+            transform: scale(1.05) !important;
         }
     </style>
 </head>
@@ -114,7 +115,7 @@
                     </div>
                 </div>
 
-                <button id="startBtn" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <button onclick="startAssessment()" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                     <i class="fas fa-play mr-2"></i>
                     Start Your Assessment
                 </button>
@@ -156,7 +157,7 @@
                 </div>
                 
                 <div class="text-center">
-                    <button type="button" id="continueBtn"
+                    <button type="button" onclick="proceedToQuestions()" 
                             class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <i class="fas fa-arrow-right mr-2"></i>
                         Continue to Assessment
@@ -183,7 +184,7 @@
             </div>
 
             <div class="text-center space-y-4">
-                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-6 mb-6">
+                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-6 mb-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-2">
                         <i class="fas fa-gift text-yellow-500 mr-2"></i>
                         Ready to Transform Your Health?
@@ -191,16 +192,31 @@
                     <p class="text-gray-700 mb-4">
                         Claim your complimentary Discovery Session to create your personalized wellness transformation plan!
                     </p>
-                    <button id="discoveryBtn"
-                            class="discovery-btn font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse">
+                    <button onclick="bookDiscoverySession()" 
+                            class="discovery-button py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <i class="fas fa-calendar-check mr-2"></i>
                         Claim My FREE Discovery Session
                     </button>
                 </div>
 
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-gray-800 mb-2">
+                        <i class="fas fa-envelope text-blue-500 mr-2"></i>
+                        Get Your Detailed Report
+                    </h4>
+                    <p class="text-gray-700 mb-4">
+                        Click below to email your complete assessment results to yourself and connect with me directly.
+                    </p>
+                    <button onclick="sendResultsEmail()" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Email My Results
+                    </button>
+                </div>
+
                 <div class="text-sm text-gray-600">
                     <p><i class="fas fa-shield-alt text-green-500 mr-1"></i> Your information is secure and will never be shared</p>
-                    <p><i class="fas fa-envelope text-blue-500 mr-1"></i> Check your email for your detailed wellness report</p>
+                    <p><i class="fas fa-phone text-green-500 mr-1"></i> WhatsApp: +44 7508 117864</p>
                 </div>
             </div>
         </div>
@@ -216,16 +232,6 @@
     </div>
 
     <script>
-        // Configuration
-        const CONFIG = {
-            scriptURL: 'https://script.google.com/a/macros/fuelgeist.co.uk/s/AKfycbwA0YhIj6pJfUjLYxAfdVERlbYIt9hhxttEFQpVWF_YJ0rA9slNfC7s9Ffz01o0kMfL/exec',
-            calendlyURL: 'https://calendly.com/fuelgeist1/your-free-discovery-session',
-            whatsappNumber: '447508117864',
-            practitionerEmail: 'david@fuelgeist.co.uk'
-        };
-
-        };
-
         // Assessment Questions based on LPHC Methodology
         const QUESTIONS = [
             {
@@ -472,9 +478,6 @@
             // Calculate results
             const results = calculateResults();
             displayResults(results);
-
-            // Submit to Google Sheets
-            submitToGoogleSheets(results);
         }
 
         function calculateResults() {
@@ -555,109 +558,74 @@
                         What's Next?
                     </h4>
                     <p class="text-gray-700">
-                        Your personalized wellness report has been sent to your email. 
-                        Schedule a complimentary Discovery Session to dive deeper into your results 
+                        Book a complimentary Discovery Session to dive deeper into your results 
                         and create a customized action plan for your wellness transformation.
                     </p>
                 </div>
             `;
+            
+            // Store results globally for email function
+            window.assessmentResults = results;
         }
 
-        async function submitToGoogleSheets(results) {
-            // Create proper form data with individual category scores
-            const formData = new URLSearchParams();
-            
-            // Add basic info
-            formData.append('timestamp', new Date().toISOString());
-            formData.append('name', contactInfo.name);
-            formData.append('email', contactInfo.email);
-            formData.append('phone', contactInfo.phone);
-            formData.append('totalScore', results.totalScore);
-            formData.append('percentage', results.percentage);
-            formData.append('wellnessLevel', results.wellnessLevel);
-            
-            // Add individual category scores
-            formData.append('Physical Energy', results.categoryScores['Physical Energy'] || 0);
-            formData.append('Sleep Quality', results.categoryScores['Sleep Quality'] || 0);
-            formData.append('Digestive Health', results.categoryScores['Digestive Health'] || 0);
-            formData.append('Mental Clarity', results.categoryScores['Mental Clarity'] || 0);
-            formData.append('Emotional Well-being', results.categoryScores['Emotional Well-being'] || 0);
-            formData.append('Physical Fitness', results.categoryScores['Physical Fitness'] || 0);
-            formData.append('Stress Management', results.categoryScores['Stress Management'] || 0);
-            formData.append('Life Satisfaction', results.categoryScores['Life Satisfaction'] || 0);
-            
-            formData.append('emailSent', 'Pending');
-            formData.append('appointmentBooked', 'No');
-            
-            try {
-                const response = await fetch(CONFIG.scriptURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: formData.toString()
-                });
-                
-                console.log('Data submitted successfully');
-                
-            } catch (error) {
-                console.error('Error submitting data:', error);
+        function bookDiscoverySession() {
+            window.open('https://calendly.com/fuelgeist1/your-free-discovery-session', '_blank');
+        }
+
+        function sendResultsEmail() {
+            const results = window.assessmentResults;
+            if (!results || !contactInfo.name || !contactInfo.email) {
+                alert('Please complete the assessment first.');
+                return;
             }
-        }
 
-        async function bookDiscoverySession() {
-            // Update spreadsheet to mark appointment as booked
-            try {
-                const updateData = new URLSearchParams();
-                updateData.append('email', contactInfo.email);
-                updateData.append('appointmentBooked', 'Yes');
-                updateData.append('bookingTimestamp', new Date().toISOString());
-                
-                await fetch(`${CONFIG.scriptURL}?${updateData.toString()}`, {
-                    method: 'GET',
-                    mode: 'no-cors'
-                });
-                
-            } catch (error) {
-                console.error('Error updating booking status:', error);
-            }
+            // Create detailed email content
+            const subject = encodeURIComponent(`${contactInfo.name} - Wellness Assessment Results`);
             
-            // Redirect to Calendly
-            window.location.href = CONFIG.calendlyURL;
+            let categoryDetails = '';
+            Object.entries(results.categoryScores).forEach(([category, score]) => {
+                categoryDetails += `• ${category}: ${score}/10\n`;
+            });
+
+            const body = encodeURIComponent(
+                `Hi David,\n\n` +
+                `I've just completed your wellness assessment. Here are my results:\n\n` +
+                `CONTACT INFORMATION:\n` +
+                `Name: ${contactInfo.name}\n` +
+                `Email: ${contactInfo.email}\n` +
+                `Phone: ${contactInfo.phone}\n\n` +
+                `WELLNESS ASSESSMENT RESULTS:\n` +
+                `Overall Score: ${results.percentage}% (${results.totalScore}/${results.maxScore})\n` +
+                `Wellness Level: ${results.wellnessLevel}\n\n` +
+                `DETAILED CATEGORY SCORES:\n` +
+                `${categoryDetails}\n` +
+                `RECOMMENDATIONS:\n` +
+                `${results.recommendations}\n\n` +
+                `I'm interested in learning more about how you can help me improve my wellness.\n\n` +
+                `Please contact me to discuss next steps.\n\n` +
+                `Best regards,\n` +
+                `${contactInfo.name}`
+            );
+
+            // Open default email client
+            window.location.href = `mailto:david@fuelgeist.co.uk?subject=${subject}&body=${body}`;
         }
 
-        // Event Listeners
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            // Start button
-            const startBtn = document.getElementById('startBtn');
-            if (startBtn) {
-                startBtn.addEventListener('click', startAssessment);
-            }
-
-            // Continue button
-            const continueBtn = document.getElementById('continueBtn');
-            if (continueBtn) {
-                continueBtn.addEventListener('click', proceedToQuestions);
-            }
-
-            // Discovery button
-            const discoveryBtn = document.getElementById('discoveryBtn');
-            if (discoveryBtn) {
-                discoveryBtn.addEventListener('click', bookDiscoverySession);
-            }
-
             console.log('Wellness Assessment loaded successfully');
         });
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96cea7e62be1d275","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96cfd99e1f48d29c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlUgaNM6zIW5Cek2KJVerk0VBgr2Jq7i%2Fqzm2opUSPXhmuNu%2BqxslzxhzY347%2BTQpfLM8ap62sT81sPgVsFQ5GnYjBFwMJggTT3eMSELdLLKVWDBhYbFbZTKXeSRBMHXtHZAILjMhHV4Ky%2F4skVXz8qISWqPl45tltL7%2B%2BTwsCXIGtGArctIshSNFXqiLV%2BJDsTo0f5BYyf2iPvBspVIDxDblO1qIUWEAf5CtxhQy%2BIzUDM%2F1D5h7x6QIRj55w3Lyh%2FgXezU3XKHo3EeAN0Jgd1fvYVqv%2FQ9Zx160zWFB7HTqFsSj75bF8SkZlKyGEhp7FPH2iagwdTiXb47cciiCQi%2BzN3U%2F7qJB1XIxYSTGGp4Opo3l9KUOWsS3FdUAftmClnENsLUeKmaBq7VVQXMAIcGtp84Ahb%2Bt%2F1vPAXuMlNbr1dsc6Rd0vnqhPGmeBbcUrE3SxBn4bhH%2BchZ5mwx%2FeItHZ38ntFQdj44haWvGOm49oG2c%2BGJP5uuyXlNwtS8YYkX1p1nJmegbsUeVX3dnw0%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDufvFZD6Zo93Aoq3vwL5zPLrC3IzhyWxhUKijHCJs9%2BZSku60B8wqSLGdXtlhk3lx0Y5G7LMx1FtFsC8YtqSXA2BoQLaaRcfj9qpMyKkbArGPCbKPF2mZzVMh5PTY3TiUK2Ad44mVKxQww7o80kCdtdiYvBTJDZS0L631GWPt3xBZZsT1fQqNUbko%2Ba6q1fb%2FVghm1RDzVcPKseQwH2tU%2FxfCd30DkhH0pyKh4TSIzbHVIkK5GLsM4%2BIsp6Twx1QKJ%2Fqs6s4uJXjAVlwTPRoWQdvltZGDnRD7ZUl19J8NT7WaBGvXM%2F7UuyYlRgSE2SJUtkHf3Hj9fYNxg%2FzES7wh5qfDrdV1McVMJxY%2BkOqiKJnSbpRsxECx50yZNrd5qIUpe87QGH3fNSi6KK8oRvjZIGFEdTLAI5hAIbnKPibeNYLfMvHDyEbyAANiY9OBILLE8Z2xpQNqG49pl6RSZyaD9wjcCeTqXd8GTGo9H0dKCFnqLyQnBrujmOC3r1eckkXBNJtyrTOqtszsHFk0%2BsEr60%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlUgaNM6zIW5Cek2KJVerk0VBgr2Jq7i/qzm2opUSPXhmuNu+qxslzxhzY347+TQpfLM8ap62sT81sPgVsFQ5GnYjBFwMJggTT3eMSELdLLKVWDBhYbFbZTKXeSRBMHXtHZAILjMhHV4Ky/4skVXz8qISWqPl45tltL7++TwsCXIGtGArctIshSNFXqiLV+JDsTo0f5BYyf2iPvBspVIDxDblO1qIUWEAf5CtxhQy+IzUDM/1D5h7x6QIRj55w3Lyh/gXezU3XKHo3EeAN0Jgd1fvYVqv/Q9Zx160zWFB7HTqFsSj75bF8SkZlKyGEhp7FPH2iagwdTiXb47cciiCQi+zN3U/7qJB1XIxYSTGGp4Opo3l9KUOWsS3FdUAftmClnENsLUeKmaBq7VVQXMAIcGtp84Ahb+t/1vPAXuMlNbr1dsc6Rd0vnqhPGmeBbcUrE3SxBn4bhH+chZ5mwx/eItHZ38ntFQdj44haWvGOm49oG2c+GJP5uuyXlNwtS8YYkX1p1nJmegbsUeVX3dnw0=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDufvFZD6Zo93Aoq3vwL5zPLrC3IzhyWxhUKijHCJs9+ZSku60B8wqSLGdXtlhk3lx0Y5G7LMx1FtFsC8YtqSXA2BoQLaaRcfj9qpMyKkbArGPCbKPF2mZzVMh5PTY3TiUK2Ad44mVKxQww7o80kCdtdiYvBTJDZS0L631GWPt3xBZZsT1fQqNUbko+a6q1fb/Vghm1RDzVcPKseQwH2tU/xfCd30DkhH0pyKh4TSIzbHVIkK5GLsM4+Isp6Twx1QKJ/qs6s4uJXjAVlwTPRoWQdvltZGDnRD7ZUl19J8NT7WaBGvXM/7UuyYlRgSE2SJUtkHf3Hj9fYNxg/zES7wh5qfDrdV1McVMJxY+kOqiKJnSbpRsxECx50yZNrd5qIUpe87QGH3fNSi6KK8oRvjZIGFEdTLAI5hAIbnKPibeNYLfMvHDyEbyAANiY9OBILLE8Z2xpQNqG49pl6RSZyaD9wjcCeTqXd8GTGo9H0dKCFnqLyQnBrujmOC3r1eckkXBNJtyrTOqtszsHFk0+sEr60=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
     
